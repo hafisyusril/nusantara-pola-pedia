@@ -17,7 +17,7 @@ export default function Navbar() {
     <nav className="fixed top-0 left-0 w-full z-50 bg-transparent px-4 py-4">
       <div className="max-w-7xl mx-auto flex justify-between  items-center">
         {/* Logo */}
-        <Link href="/" className="text-white font-bold text-xl">
+        <Link href="/" className="text-black font-bold text-xl">
           Pedia
         </Link>
 
@@ -31,7 +31,7 @@ export default function Navbar() {
                 <Link
                   href={item.href}
                   className={`
-                    text-white 
+                    text-black 
                     font-medium 
                     relative
                     after:absolute
@@ -39,7 +39,7 @@ export default function Navbar() {
                     after:-bottom-1
                     after:h-0.5
                     after:w-full
-                    after:bg-white
+                    after:bg-black
                     after:scale-x-0
                     after:origin-left
                     after:transition-transform

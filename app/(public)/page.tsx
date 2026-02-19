@@ -1,11 +1,12 @@
 import BlogCard from "@/components/BlogCard";
+import { getBlogs } from "@/lib/posts";
 
 export default async function HomePage() {
   const { data } = await getBlogs();
 
   return (
     <main  >
-      <h1 className="text-3xl font-bold text-slate-300 mb-8">Blog & News</h1>
+      <h1 className="text-3xl font-bold mb-8">Blog & News</h1>
 
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {data.map((post: any) => (
@@ -23,14 +24,4 @@ export default async function HomePage() {
   );
 }
 
-async function getBlogs() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/posts`, {
-    cache: "no-store",
-  });
 
-  if (!res.ok) {
-    throw new Error("Failed to fetch posts");
-  }
-
-  return res.json();
-}

@@ -22,7 +22,16 @@ export async function POST(req: Request) {
     { expiresIn: "1d" }
   );
 
-  return NextResponse.json({ token });
+  const res = NextResponse.json({  message: "Login Success", token, });
+
+  res.cookies.set("token", token, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    path: "/",
+    maxAge: 60 * 60 * 24,
+  });
+
+  return res;
 }
 
 

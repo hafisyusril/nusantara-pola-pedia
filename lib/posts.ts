@@ -1,27 +1,11 @@
-import { prisma } from "./prisma";
-
-export async function getPublishedPosts() {
-  return await prisma.post.findMany({
-    where: { published: true, deletedAt: null },
-    orderBy: { createdAt: "desc" },
-    include: {
-      author: {
-        select: { name: true },
-      },
-    },
+export async function getBlogs() {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/posts`, {
+    cache: "no-store", // selalu ambil terbaru
   });
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch posts");
+  }
+
+  return res.json();
 }
-
-export async function getAllPostsForAdmin() {
-  return await prisma.post.findMany({
-    where: { published: true, deletedAt: null },
-    orderBy: { createdAt: "desc" },
-    include: {
-      author: {
-        select: { name: true, email: true },
-      },
-    },
-  });
-}
-
-
