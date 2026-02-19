@@ -1,7 +1,7 @@
 "use client";
 
 import ConfirmModal from "@/components/ConfirmModal";
-import { getBlogs } from "@/lib/posts";
+import { getPosts } from "@/lib/posts";
 import { Post } from "@/types/posts";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -17,9 +17,16 @@ export default function AdminPostsPage() {
 
   useEffect(() => {
     async function fetchData() {
-      const { data } = await getBlogs();
-      setPosts(data);
-      setLoading(false);
+      try {
+        const { data } = await getPosts();
+        console.log("DATA >>>>", data)
+        setPosts(data || []);
+      } catch (error) {
+        console.error("Failed to fetch posts:", error);
+        setPosts([]);
+      } finally {
+        setLoading(false);
+      }
     }
 
     fetchData();
@@ -135,7 +142,7 @@ export default function AdminPostsPage() {
         }}
         onConfirm={handleDelete}
       />
-      ;
+      
     </div>
   );
 }
