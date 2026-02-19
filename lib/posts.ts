@@ -24,7 +24,7 @@ export async function getPosts() {
   
   try {
     const res = await fetch(url, {
-      cache: "no-store",
+      cache: "force-cache", // Allow static caching for ISR
       ...(typeof window === "undefined" && { 
         headers: { "User-Agent": "Next.js Server" } 
       }),

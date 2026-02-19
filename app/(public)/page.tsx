@@ -3,6 +3,9 @@ import { getPosts } from "@/lib/posts";
 import { Post } from "@/types/posts";
 import Image from "next/image";
 
+// Revalidate homepage every 60 seconds (ISR)
+export const revalidate = 60;
+
 export default async function HomePage() {
   let data: Post[] = [];
   
