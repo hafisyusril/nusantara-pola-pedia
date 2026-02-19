@@ -1,3 +1,5 @@
+"use server";
+
 import { prisma } from "./prisma";
 
 // Fetch posts via API (for client-side)
