@@ -1,5 +1,6 @@
 import { prisma } from "./prisma";
 
+// Fetch posts via API (for client-side)
 export async function getPosts() {
   let url = "/api/posts";
   
@@ -24,7 +25,7 @@ export async function getPosts() {
   
   try {
     const res = await fetch(url, {
-      cache: "force-cache", // Allow static caching for ISR
+      cache: "force-cache",
       ...(typeof window === "undefined" && { 
         headers: { "User-Agent": "Next.js Server" } 
       }),
@@ -43,6 +44,35 @@ export async function getPosts() {
       publicBaseUrl: process.env.NEXT_PUBLIC_BASE_URL,
     });
     // Return empty response structure for error cases
+    return { data: [], meta: { count: 0 } };
+  }
+}
+
+// Direct database query for server components (no API call needed)
+export async function getPublicPosts() {
+  try {
+    const posts = await prisma.post.findMany({
+      where: { published: true }, // Only published posts
+      include: {
+        author: {
+          select: { id: true, name: true, email: true },
+        },
+      },
+      orderBy: { createdAt: "desc" },
+      take: 10,
+    });
+
+    // Convert Date objects to ISO strings for consistency with API response
+    const formattedPosts = posts.map((post) => ({
+      ...post,
+      createdAt: post.createdAt.toISOString(),
+      updatedAt: post.updatedAt.toISOString(),
+      deletedAt: post.deletedAt ? post.deletedAt.toISOString() : null,
+    }));
+
+    return { data: formattedPosts, meta: { count: formattedPosts.length } };
+  } catch (error) {
+    console.error("[getPublicPosts] Error:", error);
     return { data: [], meta: { count: 0 } };
   }
 }

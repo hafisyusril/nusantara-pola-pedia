@@ -1,5 +1,5 @@
 import BlogCard from "@/components/BlogCard";
-import { getPosts } from "@/lib/posts";
+import { getPublicPosts } from "@/lib/posts";
 import { Post } from "@/types/posts";
 import Image from "next/image";
 
@@ -10,7 +10,7 @@ export default async function HomePage() {
   let data: Post[] = [];
   
   try {
-    const response = await getPosts()
+    const response = await getPublicPosts()
     data = response.data || []
     console.log("[HomePage] Loaded posts:", data.length);
   } catch (error) {
