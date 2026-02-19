@@ -9,8 +9,9 @@ export default async function HomePage() {
   try {
     const response = await getPosts()
     data = response.data || []
+    console.log("[HomePage] Loaded posts:", data.length);
   } catch (error) {
-    console.error("Failed to fetch posts:", error)
+    console.error("[HomePage] Failed to fetch posts:", error)
     // Return empty data, halaman tetap render
   }
 

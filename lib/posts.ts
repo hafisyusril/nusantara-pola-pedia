@@ -6,10 +6,20 @@ export async function getPosts() {
   // Detect if running on server or client
   if (typeof window === "undefined") {
     // On server, use absolute URL
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 
-                     (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : null) ||
-                     "http://localhost:3000";
+    let baseUrl = "";
+    
+    if (process.env.NEXT_PUBLIC_BASE_URL) {
+      baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+    } else if (process.env.VERCEL_URL) {
+      // Vercel automatically provides VERCEL_URL (e.g., "my-app.vercel.app")
+      baseUrl = `https://${process.env.VERCEL_URL}`;
+    } else {
+      // Fallback for local development only
+      baseUrl = "http://localhost:3000";
+    }
+    
     url = `${baseUrl}/api/posts`;
+    console.log("[getPosts] Using URL:", url, "| VERCEL_URL:", process.env.VERCEL_URL);
   }
   
   try {
@@ -21,12 +31,17 @@ export async function getPosts() {
     });
 
     if (!res.ok) {
-      throw new Error(`Failed to fetch posts: ${res.status}`);
+      throw new Error(`Failed to fetch posts: ${res.status} ${res.statusText}`);
     }
 
     return await res.json();
   } catch (error) {
-    console.error("getPosts error:", error);
+    console.error("[getPosts] Error:", {
+      url,
+      error: error instanceof Error ? error.message : String(error),
+      vercelUrl: process.env.VERCEL_URL,
+      publicBaseUrl: process.env.NEXT_PUBLIC_BASE_URL,
+    });
     // Return empty response structure for error cases
     return { data: [], meta: { count: 0 } };
   }
