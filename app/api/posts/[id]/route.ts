@@ -3,10 +3,12 @@ import { prisma } from "@/lib/prisma";
 
 export async function GET(
   _req: Request,
-  { params }: { params: { id: string } },
+  { params }: { params: Promise<{ id: string }> },
 ) {
+  const { id } = await params;
+
   const post = await prisma.post.findUnique({
-    where: { id: params.id },
+    where: { id },
     include: {
       author: true,
     },
@@ -21,12 +23,13 @@ export async function GET(
 
 export async function PUT(
   req: Request,
-  { params }: { params: { id: string } },
+  { params }: { params: Promise<{ id: string }> },
 ) {
+  const { id } = await params;
   const body = await req.json();
 
   const post = await prisma.post.update({
-    where: { id: params.id },
+    where: { id },
     data: {
       title: body.title,
       content: body.content,
@@ -39,11 +42,15 @@ export async function PUT(
 
 export async function DELETE(
   _req: Request,
-  { params }: { params: { id: string } },
+  ctx: { params: Promise<{ id: string }> },
 ) {
+  const { id } = await ctx.params;
+
+  console.log("DELETE HIT:", id);
+
   await prisma.post.delete({
-    where: { id: params.id },
+    where: { id },
   });
 
-  return NextResponse.json({ message: "Post deleted" }, { status: 204 });
+  return NextResponse.json({ message: "Post deleted" });
 }

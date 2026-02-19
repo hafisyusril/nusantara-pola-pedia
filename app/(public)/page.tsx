@@ -1,5 +1,6 @@
 import BlogCard from "@/components/BlogCard";
 import { getBlogs } from "@/lib/posts";
+import { Post } from "@/types/posts";
 
 export default async function HomePage() {
   const { data } = await getBlogs();
@@ -9,7 +10,7 @@ export default async function HomePage() {
       <h1 className="text-3xl font-bold mb-8">Blog & News</h1>
 
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {data.map((post: any) => (
+        {data.map((post: Post) => (
           <BlogCard
             key={post.id}
             title={post.title}
