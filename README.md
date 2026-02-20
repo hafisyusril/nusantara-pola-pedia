@@ -13,7 +13,7 @@ Dibangun dengan teknologi modern menggunakan Next.js 16, Prisma, dan PostgreSQL.
 - **Services** - Halaman layanan
 
 ### Admin Section
-- **Authentication** - Login dengan email dan password (email: admin@polapedia.com, password: admin123)
+- **Authentication** - Login dengan email dan password di url https://nusantara-pola-pedia.vercel.app/login (email: admin@polapedia.com, password: admin123)
 - **Post Management** - Create, Read, Update, Delete posts
 - **Post List** - Table view untuk semua posts dengan info penulis dan tanggal
 - **Traffic Monitor** - Halaman untuk monitoring traffic (ready to implement soon!)
