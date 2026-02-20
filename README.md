@@ -1,36 +1,99 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Nusantara Pola-pedia
 
-## Getting Started
+Platform blog profesional untuk berbagi insights, strategi, dan berita tentang bisnis digital. Dibangun dengan teknologi modern menggunakan Next.js 16, Prisma, dan PostgreSQL.
 
-First, run the development server:
+## 🎯 Fitur Utama
 
+### Public Section
+- **Homepage** - Halaman beranda dengan tampilan hero dan daftar blog terbaru
+- **Blog List** - Menampilkan 10 blog terbaru dengan layout card yang menarik
+- **Blog Detail** - Halaman detail post dengan layout profesional seperti berita nasional
+- **About** - Halaman tentang perusahaan
+- **Contact** - Halaman kontak
+- **Services** - Halaman layanan
+
+### Admin Section
+- **Authentication** - Login dengan email dan password (email: admin@polapedia.com, password: admin123)
+- **Post Management** - Create, Read, Update, Delete posts
+- **Post List** - Table view untuk semua posts dengan info penulis dan tanggal
+- **Traffic Monitor** - Halaman untuk monitoring traffic (ready to implement soon!)
+
+### Technical Features
+- **Server-Side Rendering (SSR)** - Homepage dengan ISR (Incremental Static Regeneration)
+- **Authentication** - JWT-based authentication dengan cookie
+- **Authorization** - Hanya author yang bisa edit/delete post mereka
+- **Error Handling** - Comprehensive error handling untuk server & client
+- **ISR Caching** - Homepage di-cache dan revalidate setiap 60 detik
+- **Type Safety** - Full TypeScript support
+- **Responsive Design** - Mobile-friendly UI with Tailwind CSS
+
+## 🚀 Quick Start
+
+### Prerequisites
+- Node.js 18+ 
+- PostgreSQL 12+
+- npm atau yarn
+
+### Installation
+
+1. **Clone & Install Dependencies**
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone <repository-url>
+cd nusantara-pola-pedia
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+##  Project Structure
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+app/
+├─ (public)/              # Public routes (layout shared)
+│   ├─ page.tsx          # Homepage
+│   ├─ about/
+│   ├─ contact/
+│   ├─ services/
+│   └─ blog/[id]/        # Dynamic post detail page
+├─ admin/                 # Admin section (protected)
+│   ├─ layout.tsx
+│   ├─ page.tsx
+│   └─ posts/
+│       ├─ page.tsx      # Post list
+│       ├─ create/       # Create post
+│       └─ [id]/edit/    # Edit post
+├─ api/                   # API routes
+│   ├─ auth/login/
+│   └─ posts/[id]/
+├─ layout.tsx            # Root layout
+└─ globals.css           # Global styles
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+components/               # Reusable components
+├- BlogCard.tsx
+├─ Navbar.tsx
+├─ Footer.tsx
+└─ ...
 
-## Learn More
+lib/
+├─ auth.ts              # Authentication helpers
+├─ posts.ts             # Post service functions
+├─ prisma.ts            # Prisma client instance
+└─ fetcher.ts           # Data fetching utilities
 
-To learn more about Next.js, take a look at the following resources:
+types/
+└─ posts.ts             # TypeScript types
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+prisma/
+├─ schema.prisma        # Database schema
+├─ seed.ts              # Database seeding
+└─ migrations/          # Migration files
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
+- **Frontend**: Next.js 16, React 19, TypeScript
+- **Styling**: Tailwind CSS 4, PostCSS
+- **Database**: PostgreSQL dengan Prisma ORM
+- **Authentication**: JWT + Cookies
+- **Deployment**: Vercel
+- **Icons**: React Icons
+- **Toast Notification**: Sonner
+- **Code Quality**: ESLint, TypeScript
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
