@@ -1,4 +1,4 @@
-import { getPostById } from "@/lib/posts";
+import { getPostById } from "@/lib/posts.server";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 

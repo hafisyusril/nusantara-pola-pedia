@@ -18,11 +18,20 @@ export default function AdminPostsPage() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const { data } = await getPosts();
-        console.log("DATA >>>>", data)
-        setPosts(data || []);
+        const response = await getPosts();
+        console.log("[Admin Posts] Response:", response);
+        
+        const postsData = response?.data || [];
+        console.log("[Admin Posts] Posts data:", postsData);
+        
+        if (Array.isArray(postsData)) {
+          setPosts(postsData);
+        } else {
+          console.error("[Admin Posts] Data is not an array:", postsData);
+          setPosts([]);
+        }
       } catch (error) {
-        console.error("Failed to fetch posts:", error);
+        console.error("[Admin Posts] Failed to fetch:", error);
         setPosts([]);
       } finally {
         setLoading(false);
