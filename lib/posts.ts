@@ -79,10 +79,31 @@ export async function getPublicPosts() {
   }
 }
 
-// export async function getPostsService() {
-//   return prisma.post.findMany({
-//     where: { published: true },
-//     include: { author: true },
-//     orderBy: { createdAt: "desc" },
-//   });
-// }
+// Get single post by ID
+export async function getPostById(id: string) {
+  try {
+    const post = await prisma.post.findUnique({
+      where: { id },
+      include: {
+        author: {
+          select: { id: true, name: true, email: true },
+        },
+      },
+    });
+
+    if (!post) {
+      return null;
+    }
+
+    // Convert Date objects to ISO strings
+    return {
+      ...post,
+      createdAt: post.createdAt.toISOString(),
+      updatedAt: post.updatedAt.toISOString(),
+      deletedAt: post.deletedAt ? post.deletedAt.toISOString() : null,
+    };
+  } catch (error) {
+    console.error("[getPostById] Error:", error);
+    return null;
+  }
+}

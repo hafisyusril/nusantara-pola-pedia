@@ -61,6 +61,7 @@ export default async function HomePage() {
             {data.map((post: Post) => (
               <BlogCard
                 key={post.id}
+                id={post.id}
                 title={post.title}
                 author={post.author.name}
                 date={post.createdAt}
