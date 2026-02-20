@@ -22,22 +22,35 @@ export default function BlogCard({
     <Link href={`/blog/${id}`}>
       <article
         className="
-          rounded-xl
-          bg-linear-to-br from-blue-500 to-blue-600
-          p-6
-          text-white
-          shadow-lg
-          transition
-          hover:-translate-y-1
-          hover:shadow-2xl
-          cursor-pointer
-        "
+    h-50
+    flex
+    flex-col
+    justify-between
+    rounded-xl
+    bg-linear-to-br from-blue-500 to-blue-600
+    p-6
+    text-white
+    shadow-lg
+    transition
+    hover:-translate-y-1
+    hover:shadow-2xl
+    cursor-pointer
+  "
       >
-        <h2 className="text-xl font-semibold mb-2">{title}</h2>
-        <p className="text-sm text-blue-100 mb-4">
-          {author}, {new Date(date).toLocaleString()}
-        </p>
-        <p className="text-sm text-blue-50 line-clamp-3">{content}</p>
+        <div>
+  <h2 className="text-xl font-semibold mb-2 line-clamp-2">
+    {title}
+  </h2>
+
+  <p className="text-sm text-blue-100 mb-4">
+    {author}, {new Date(date).toLocaleDateString()}
+  </p>
+
+  <p className="text-sm text-blue-50 line-clamp-3">
+    {content}
+  </p>
+</div>
+
       </article>
     </Link>
   );
