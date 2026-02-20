@@ -1,5 +1,5 @@
 import BlogCard from "@/components/BlogCard";
-import { getPublicPosts } from "@/lib/posts";
+import { getPublicPosts } from "@/lib/posts.server";
 import { Post } from "@/types/posts";
 import Image from "next/image";
 
