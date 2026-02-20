@@ -1,6 +1,6 @@
-# Nusantara Pola-pedia
+# Nusantara Pola-pedia test
 
-Platform blog profesional untuk berbagi insights, strategi, dan berita tentang bisnis digital. Dibangun dengan teknologi modern menggunakan Next.js 16, Prisma, dan PostgreSQL.
+Dibangun dengan teknologi modern menggunakan Next.js 16, Prisma, dan PostgreSQL.
 
 ## 🎯 Fitur Utama
 
